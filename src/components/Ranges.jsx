@@ -4,6 +4,32 @@ import LineChart from "./LineChart";
 import ProgressRange from "./Progressbar/ProgressRange";
 
 const Ranges = () => {
+  const [feedbackData, setFeedbackData] = useState({
+    positive: 0,
+    negative: 0,
+    neutral: 0,
+  });
+
+  const getFeedbackData = async () => {
+    try {
+      const response = await fetch(
+        "http://3.227.101.169:8020/api/v1/sample_assignment_api_5/",
+        {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: "Basic dHJpYWw6YXNzaWdubWVudDEyMw==",
+          },
+        }
+      );
+      const result = await response.json();
+      setFeedbackData(result);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    getFeedbackData();
+  }, []);
 
   return (
     <div className="grid grid-rows-9 gap-2 place-items-center rounded-2xl h-[90vh] overflow-hidden">
@@ -35,19 +61,23 @@ const Ranges = () => {
       <div className="w-full h-full row-span-2 bg-white px-8 py-2 rounded-2xl space-y-2">
         <p className="text-sm text-gray-400">Community feedback</p>
         <h3 className="font-semibold">Mostly Positive</h3>
-        <ProgressRange positive={40} negative={19} neutral={20} />
+        <ProgressRange
+          positive={feedbackData?.positive}
+          negative={feedbackData?.negative}
+          neutral={feedbackData?.neutral}
+        />
         <div className="grid grid-cols-3 gap-5">
           <div>
             <p className="text-gray-400 text-sm">Negative</p>
-            <p className="font-medium">40</p>
+            <p className="font-medium">{feedbackData?.negative}</p>
           </div>
           <div>
             <p className="text-gray-400 text-sm">Neutral</p>
-            <p className="font-medium">40</p>
+            <p className="font-medium">{feedbackData?.positive}</p>
           </div>
           <div>
             <p className="text-gray-400 text-sm">Positive</p>
-            <p className="font-medium">40</p>
+            <p className="font-medium">{feedbackData?.neutral}</p>
           </div>
         </div>
       </div>
