@@ -6,7 +6,7 @@ import ProgressRange from "./Progressbar/ProgressRange";
 const Ranges = () => {
 
   return (
-    <div className="grid grid-rows-9 gap-5 place-items-center rounded-2xl h-[90vh] overflow-hidden">
+    <div className="grid grid-rows-9 gap-2 place-items-center rounded-2xl h-[90vh] overflow-hidden">
       <div className="w-full h-full row-span-4 bg-white px-8 rounded-2xl">
         <div className="relative border-b pb-5">
           <div className="flex justify-center items-center">
@@ -16,7 +16,7 @@ const Ranges = () => {
             of 100 points
           </p>
         </div>
-        <div className="space-y-3 pt-2">
+        <div className="space-y-3">
           <p className="mt-3 text-xl font-semibold">You're good!</p>
           <p className="text-gray-400 text-sm font-medium">
             Your sales performance score is better than 80% other users

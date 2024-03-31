@@ -40,7 +40,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex-8/9 relative px-2">
+        <div className="flex-8/9 relative px-2 h-[80vh] overflow-y-auto">
           <DashboardData />
         </div>
       </div>
