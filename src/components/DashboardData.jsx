@@ -1,13 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MacroData from "./MacroData";
 import BarChart from "./BarChart";
 import ProductsTable from "./ProductsTable";
 
 const DashboardData = () => {
+  const [macroData, setMacroData] = useState({});
+
+  const getMacroData = async () => {
+    try {
+      const response = await fetch(
+        "http://3.227.101.169:8020/api/v1/sample_assignment_api_1/",
+        {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: "Basic dHJpYWw6YXNzaWdubWVudDEyMw==",
+          },
+        }
+      );
+      const result = await response.json();
+      setMacroData(result);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    getMacroData();
+  }, []);
+
   return (
     <div className="h-full space-y-5">
-      <div >
-        <MacroData />
+      <div>
+        <MacroData macroData={macroData} />
       </div>
       <div className="">
         <div className="flex flex-row justify-between items-center gap-2 text-sm">

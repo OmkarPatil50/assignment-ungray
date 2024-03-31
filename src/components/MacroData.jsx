@@ -1,21 +1,22 @@
 import React from "react";
 import { HiTrendingDown, HiTrendingUp } from "react-icons/hi";
+import { formatNumber } from "../common/formatNumber";
 
-const MacroData = () => {
+const MacroData = ({ macroData }) => {
   const data = [
     {
       topic: "Purchases",
-      amount: "4,294",
+      amount: formatNumber(macroData?.purchases),
       change: +32,
     },
     {
       topic: "Revenue",
-      amount: "$322,3k",
+      amount: formatNumber(macroData?.revenue),
       change: +49,
     },
     {
       topic: "Refunds",
-      amount: "$8,2k",
+      amount: formatNumber(macroData?.refunds),
       change: -7,
     },
   ];
