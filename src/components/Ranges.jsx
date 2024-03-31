@@ -9,6 +9,7 @@ const Ranges = () => {
     negative: 0,
     neutral: 0,
   });
+  const [performance, setPerformance] = useState({});
 
   const getFeedbackData = async () => {
     try {
@@ -27,7 +28,25 @@ const Ranges = () => {
     } catch (error) {}
   };
 
+  const getPerformanceData = async () => {
+    try {
+      const response = await fetch(
+        "http://3.227.101.169:8020/api/v1/sample_assignment_api_3/",
+        {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: "Basic dHJpYWw6YXNzaWdubWVudDEyMw==",
+          },
+        }
+      );
+      const result = await response.json();
+      setPerformance(result);
+    } catch (error) {}
+  };
+
   useEffect(() => {
+    getPerformanceData();
     getFeedbackData();
   }, []);
 
@@ -36,16 +55,16 @@ const Ranges = () => {
       <div className="w-full h-full row-span-4 bg-white px-8 rounded-2xl">
         <div className="relative border-b pb-5">
           <div className="flex justify-center items-center">
-            <Progressbar progress={100} />
+            <Progressbar progress={performance?.score} />
           </div>
           <p className="text-gray-400 text-sm -mt-10 text-center">
             of 100 points
           </p>
         </div>
         <div className="space-y-3">
-          <p className="mt-3 text-xl font-semibold">You're good!</p>
+          <p className="mt-3 text-xl font-semibold">{performance?.title}!</p>
           <p className="text-gray-400 text-sm font-medium">
-            Your sales performance score is better than 80% other users
+            {performance?.message}
           </p>
           <button className="text-sm border font-medium px-3 py-1 rounded-full">
             Improve your score
