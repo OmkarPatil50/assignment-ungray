@@ -1,22 +1,28 @@
 import { CChart } from "@coreui/react-chartjs";
 
-const BarChart = () => {
+const BarChart = ({barChartData}) => {
+
+    const xAxisLabels = barChartData?.map(item=>item?.Month)
+    const thisYearValues = barChartData?.map(item=>item?.This_year)
+    const lastYearValues = barChartData?.map(item=>item?.Last_year)
+
+
   const data = {
-    labels: ["January", "February", "March", "April", "May"],
+    labels: xAxisLabels,
     datasets: [
       {
-        label: "Dataset 1",
+        label: "Last Year",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
         borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: 1,
-        data: [10, 20, 30, 40, 50],
+        data: lastYearValues,
       },
       {
-        label: "Dataset 2",
+        label: "This Year",
         backgroundColor: "rgba(54, 162, 235, 0.5)",
         borderColor: "rgba(54, 162, 235, 1)",
         borderWidth: 1,
-        data: [20, 30, 40, 50, 60],
+        data: thisYearValues,
       },
     ],
   };
@@ -27,7 +33,7 @@ const BarChart = () => {
         labels: data.labels,
         datasets: [
           {
-            label: "Virtual",
+            label: "Last Year",
             backgroundColor: "#99f6e4",
             borderColor: "#0038FF",
             data: data.datasets[0].data,
@@ -35,7 +41,7 @@ const BarChart = () => {
             borderRadius: 10,
           },
           {
-            label: "Onsite",
+            label: "This Year",
             backgroundColor: "#3b82f6",
             borderColor: "#6092C0",
             data: data.datasets[1].data,

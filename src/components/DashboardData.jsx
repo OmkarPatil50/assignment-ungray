@@ -5,6 +5,8 @@ import ProductsTable from "./ProductsTable";
 
 const DashboardData = () => {
   const [macroData, setMacroData] = useState({});
+  const [barChartData, setBarChartData] = useState([]);
+  const [productsData, setProductsData] = useState([]);
 
   const getMacroData = async () => {
     try {
@@ -23,8 +25,26 @@ const DashboardData = () => {
     } catch (error) {}
   };
 
+  const getBarChartData = async () => {
+    try {
+      const response = await fetch("http://localhost:3002/months");
+      const result = await response.json();
+      setBarChartData(result);
+    } catch (error) {}
+  };
+
+  const getProductsData = async () => {
+    try {
+      const response = await fetch("http://localhost:3002/products");
+      const result = await response.json();
+      setProductsData(result);
+    } catch (error) {}
+  };
+
   useEffect(() => {
+    getBarChartData();
     getMacroData();
+    getProductsData();
   }, []);
 
   return (
@@ -49,7 +69,7 @@ const DashboardData = () => {
           </div>
         </div>
         <div className="w-full h-full">
-          <BarChart />
+          <BarChart barChartData={barChartData} />
         </div>
       </div>
       <div>
@@ -59,7 +79,7 @@ const DashboardData = () => {
           </div>
           <div className="border rounded-full px-2 py-1">Full Results</div>
         </div>
-        <ProductsTable />
+        <ProductsTable productsData={productsData} />
       </div>
     </div>
   );

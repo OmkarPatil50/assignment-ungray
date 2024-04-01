@@ -1,31 +1,31 @@
 import { CChart } from "@coreui/react-chartjs";
 
-
-const LineChart = () => {
-  const yAxisLabelsForVirtual = [10, 20, 30, 48, 26];
-  const yAxisLabelsForOnsite = [5, 6, 24, 68, 12];
+const LineChart = ({ salesData }) => {
+  const yAxisLabelsForWeb = salesData?.map((item) => item.web_sales);
+  const yAxisLabelsForOffline = salesData?.map((item) => item.offline_sales);
+  const labels = salesData?.map((item) => item.date);
 
   return (
     <CChart
       type="line"
       data={{
-        labels: ["a", "da" , 'weq', 'c','s'] ,
+        labels,
         datasets: [
           {
-            label: "Virtual",
+            label: "Web",
             borderColor: "#99f6e4",
             pointBackgroundColor: "#fff",
             pointBorderColor: "#0038FF",
             pointRadius: 0,
-            data: yAxisLabelsForVirtual,
+            data: yAxisLabelsForWeb,
           },
           {
-            label: "Onsite",
+            label: "Offline",
             borderColor: "#3b82f6",
             pointBackgroundColor: "#fff",
             pointBorderColor: "#6092C0",
             pointRadius: 0,
-            data: yAxisLabelsForOnsite,
+            data: yAxisLabelsForOffline,
           },
         ],
       }}
@@ -44,6 +44,7 @@ const LineChart = () => {
               display: false,
             },
             ticks: {
+              display: false, // Hide x-axis tick labels
               color: "--cui-body-color",
             },
           },
@@ -53,6 +54,7 @@ const LineChart = () => {
               display: false,
             },
             ticks: {
+              display: false, // Hide y-axis tick labels
               color: "--cui-body-color",
             },
           },

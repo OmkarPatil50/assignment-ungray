@@ -10,6 +10,7 @@ const Ranges = () => {
     neutral: 0,
   });
   const [performance, setPerformance] = useState({});
+  const [salesData, setSalesData] = useState([]);
 
   const getFeedbackData = async () => {
     try {
@@ -45,9 +46,18 @@ const Ranges = () => {
     } catch (error) {}
   };
 
+  const getSalesData = async () => {
+    try {
+      const response = await fetch("http://localhost:3002/sales");
+      const result = await response.json();
+      setSalesData(result);
+    } catch (error) {}
+  };
+
   useEffect(() => {
     getPerformanceData();
     getFeedbackData();
+    getSalesData();
   }, []);
 
   return (
@@ -74,7 +84,7 @@ const Ranges = () => {
       <div className="w-full h-full row-span-3 bg-white pt-4 px-2 rounded-2xl">
         <h3 className="px-6 font-semibold">Customers by device</h3>
         <div className="h-full py-3">
-          <LineChart />
+          <LineChart salesData={salesData} />
         </div>
       </div>
       <div className="w-full h-full row-span-2 bg-white px-8 py-2 rounded-2xl space-y-2">
