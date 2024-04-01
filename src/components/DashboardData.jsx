@@ -27,7 +27,7 @@ const DashboardData = () => {
 
   const getBarChartData = async () => {
     try {
-      const response = await fetch("http://localhost:3002/months");
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/months`);
       const result = await response.json();
       setBarChartData(result);
     } catch (error) {}
@@ -35,7 +35,7 @@ const DashboardData = () => {
 
   const getProductsData = async () => {
     try {
-      const response = await fetch("http://localhost:3002/products");
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/products`);
       const result = await response.json();
       setProductsData(result);
     } catch (error) {}

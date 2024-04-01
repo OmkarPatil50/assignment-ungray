@@ -48,7 +48,7 @@ const Ranges = () => {
 
   const getSalesData = async () => {
     try {
-      const response = await fetch("http://localhost:3002/sales");
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/sales`)
       const result = await response.json();
       setSalesData(result);
     } catch (error) {}
