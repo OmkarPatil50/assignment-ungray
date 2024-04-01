@@ -11,7 +11,7 @@ const DashboardData = () => {
   const getMacroData = async () => {
     try {
       const response = await fetch(
-        "http://3.227.101.169:8020/api/v1/sample_assignment_api_1/",
+        "https://3.227.101.169:8020/api/v1/sample_assignment_api_1/",
         {
           method: "GET",
           headers: {

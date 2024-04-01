@@ -15,7 +15,7 @@ const Ranges = () => {
   const getFeedbackData = async () => {
     try {
       const response = await fetch(
-        "http://3.227.101.169:8020/api/v1/sample_assignment_api_5/",
+        "https://3.227.101.169:8020/api/v1/sample_assignment_api_5/",
         {
           method: "GET",
           headers: {
@@ -32,7 +32,7 @@ const Ranges = () => {
   const getPerformanceData = async () => {
     try {
       const response = await fetch(
-        "http://3.227.101.169:8020/api/v1/sample_assignment_api_3/",
+        "https://3.227.101.169:8020/api/v1/sample_assignment_api_3/",
         {
           method: "GET",
           headers: {

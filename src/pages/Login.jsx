@@ -11,7 +11,7 @@ export function Login() {
   const getLoginDetails = async () => {
     setIsLoggingIn(true);
     try {
-      const response = await fetch("http://3.227.101.169:8020/api/v1/login/", {
+      const response = await fetch("https://3.227.101.169:8020/api/v1/login/", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
