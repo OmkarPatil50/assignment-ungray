@@ -1,13 +1,15 @@
-import { useContext, useState } from "react";
-import { Link, json, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const navigate = useNavigate();
 
   const getLoginDetails = async () => {
+    setIsLoggingIn(true);
     try {
       const response = await fetch("http://3.227.101.169:8020/api/v1/login/", {
         method: "POST",
@@ -25,10 +27,12 @@ export function Login() {
 
       const jsonResponse = await response.json();
       if (jsonResponse?.message === "Successfully Logged in") {
+        localStorage.setItem("loggedIn", true);
         navigate("/");
       }
+      setIsLoggingIn(false);
     } catch (err) {
-      navigate("/error");
+      setIsLoggingIn(true);
     }
   };
 
@@ -36,6 +40,10 @@ export function Login() {
     setUsername("trial");
     setPassword("assignment123");
   };
+
+  useEffect(() => {
+    localStorage.removeItem("loggedIn");
+  }, []);
 
   return (
     <div className="flex justify-center items-center h-screen bg-zinc-300">
@@ -61,7 +69,7 @@ export function Login() {
           onClick={getLoginDetails}
           className="bg-blue-500 text-white rounded-md w-full py-2"
         >
-          Log In
+          {isLoggingIn ? "Logging In" : "Log In"}
         </button>
         <button onClick={loginWithTestCred} className="my-2 text-center w-full">
           Fill Test Credentials

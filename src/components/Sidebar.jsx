@@ -1,9 +1,12 @@
 import React from "react";
 import { dashboardTabs, topTabs } from "../assets/dashboardTabs";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ tab, setTab }) => {
   const userAvatar =
     "https://img.freepik.com/premium-photo/speech-therapist-digital-avatar-generative-ai_934475-9023.jpg?size=626&ext=jpg&uid=R141431796&ga=GA1.2.1819053515.1704191943&semt=ais";
+
+  const navigate = useNavigate();
 
   return (
     <div className="ml-4 flex flex-col h-[80vh] relative">
@@ -54,11 +57,24 @@ const Sidebar = ({ tab, setTab }) => {
         ))}
       </ul>
 
-      <div className="absolute bottom-6 left-6 flex justify-start items-center gap-2" >
-        <div className="w-7 h-7 rounded-full overflow-hidden" >
-          <img src={userAvatar} alt="user" className="w-full h-full object-cover" />
+      <div className="absolute bottom-6 left-6 flex justify-start items-center gap-2">
+        <div className="w-7 h-7 rounded-full overflow-hidden">
+          <img
+            src={userAvatar}
+            alt="user"
+            className="w-full h-full object-cover"
+          />
         </div>
-        <p className="font-semibold text-gray-700" >Tom Wang</p>
+        <p className="font-semibold text-gray-700">Tom Wang</p>
+        <p
+          className="cursor-pointer text-sm hover:underline hover:underline-offset-1 hover:text-red-500"
+          onClick={() => {
+            localStorage.removeItem("loggedIn");
+            navigate("/login");
+          }}
+        >
+          Logout
+        </p>
       </div>
     </div>
   );

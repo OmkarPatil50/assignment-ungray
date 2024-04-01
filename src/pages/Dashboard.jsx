@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import DashboardData from "../components/DashboardData";
 import Ranges from "../components/Ranges";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const Logo =
     "https://upload.wikimedia.org/wikipedia/commons/1/1e/D.E.M.O._Logo_2006.svg";
 
   const [tab, setTab] = useState("Dashboard");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("loggedIn");
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <div className="bg-zinc-300 p-6 h-screen">
